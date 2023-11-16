@@ -8,5 +8,9 @@
   },
   "keywords": [],
   "author": "guxiaobiao",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "protobufjs": "^7.2.5",
+    "react": "^18.2.0"
+  }
 }
