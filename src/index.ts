@@ -12,7 +12,8 @@ const messagePending = [
     { key: 3, value: '连接已关闭或者没有连接成功' },
 ]
 
-const WebSocket = ({ url }) => {
+
+const useWs = ({ url }) => {
     const ws = useRef<any>(null);
     const timer = useRef<any>(null);
     const count = useRef(0);    
@@ -23,11 +24,11 @@ const WebSocket = ({ url }) => {
     const createWebStocket = () => {
         try {
             ws.current = new WebSocket(url); 
-            ws.current?.binaryType = 'arraybuffer';
-            ws.current?.onopen = () => setReadyState(messagePending[ws.current?.readyState ?? 0]);
-            ws.current?.close = () => setReadyState(messagePending[ws.current?.readyState ?? 0]);
-            ws.current?.error = () => setReadyState(messagePending[ws.current?.readyState?? 0]);
-            ws.current?.onmessage = (e) => {
+            ws.current.binaryType = 'arraybuffer';
+            ws.current.onopen = () => setReadyState(messagePending[ws.current?.readyState ?? 0]);
+            ws.current.close = () => setReadyState(messagePending[ws.current?.readyState ?? 0]);
+            ws.current.error = () => setReadyState(messagePending[ws.current?.readyState?? 0]);
+            ws.current.onmessage = (e) => {
                 // 处理返回的消息
                 let Message = root.lookupType('websocket.WebSocketTransferMessage')
                 let buffer = new Uint8Array(e.data)
@@ -116,4 +117,4 @@ const WebSocket = ({ url }) => {
 
 
 
-export default WebSocket;
+export default useWs;
