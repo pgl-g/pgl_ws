@@ -1,8 +1,4 @@
-import React, { useRef, useState, useEffect  } from 'react';
-
-
-
-
+import React, { useRef, useState, useEffect } from 'react';
 
 
 const messagePending = [
@@ -16,18 +12,18 @@ const messagePending = [
 const useWs = ({ url }) => {
     const ws = useRef<any>(null);
     const timer = useRef<any>(null);
-    const count = useRef(0);    
+    const count = useRef(0);
     const [wsData, setMessage] = useState('');
     const [readyState, setReadyState] = useState({ key: 0, value: '正在链接中...' })
 
     // 创建ws
     const createWebStocket = () => {
         try {
-            ws.current = new WebSocket(url); 
+            ws.current = new WebSocket(url);
             ws.current.binaryType = 'arraybuffer';
             ws.current.onopen = () => setReadyState(messagePending[ws.current?.readyState ?? 0]);
             ws.current.close = () => setReadyState(messagePending[ws.current?.readyState ?? 0]);
-            ws.current.error = () => setReadyState(messagePending[ws.current?.readyState?? 0]);
+            ws.current.error = () => setReadyState(messagePending[ws.current?.readyState ?? 0]);
             ws.current.onmessage = (e) => {
                 // 处理返回的消息
                 let Message = root.lookupType('websocket.WebSocketTransferMessage')
@@ -50,7 +46,7 @@ const useWs = ({ url }) => {
             createWebStocket();
         }
     }
-    
+
     // 关闭ws
     const closeWebstocker = () => {
         ws.current?.close();
