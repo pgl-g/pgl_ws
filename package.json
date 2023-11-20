@@ -1,12 +1,15 @@
 {
   "name": "websocket",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "🚀🚀🚀心跳机制",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "react",
+    "websocket"
+  ],
   "author": "guxiaobiao",
   "license": "ISC",
   "dependencies": {
