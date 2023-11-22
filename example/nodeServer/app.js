@@ -2,7 +2,7 @@
 const Websocket = require('ws')
 
 // 创建一个server，Websocket中有一个Server的属性,注意：是new了一个Websocket的Server，里面给一个端口
-const server = new Websocket.Server({ port: 8000 })
+const server = new Websocket.Server({ port: 8888 })
 
 // 监听
 server.on('connection', handleConnection)
@@ -46,6 +46,7 @@ function handleConnection(wx) {
    */
   function handleMessage(data) {
     const { mode, msg } = JSON.parse(data)
+    console.log(JSON.parse(data), data, '我看下能不能拿到data数据');
     switch (mode) {
       case 'MESSAGE':
         // 根据需求处理

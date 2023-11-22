@@ -19,11 +19,11 @@ function App() {
      * 1.发布订阅监听
      * 2.直接传
      */
-    wsRef.current = Ws.create('ws://localhost:8000', wsReConnect)
+    wsRef.current = Ws.create('ws://localhost:8888', wsReConnect)
   }
 
   function wsReConnect() {
-    // 如果ws不存在，我们就重新创建ws
+    // 如果wsRef不存在，我们就重新创建wsRef
     if (!wsRef.current) {
       return wsConnect()
     }
@@ -44,13 +44,13 @@ function App() {
   }
 
   useEffect(() => {
-    // wsConnect()
+    wsConnect()
   }, [])
 
 
   return (
     <div className="App">
-      <button onClick={handleSend}>发送WS</button>
+      <button onClick={handleSend}>发送</button>
     </div>
   );
 }
