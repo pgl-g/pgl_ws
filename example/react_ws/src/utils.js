@@ -23,9 +23,9 @@ class Ws extends WebSocket {
   init() {
     // this:Ws的实例，监听open、close、error、message
     this.addEventListener('open', this.handleOpen, false)
+    this.addEventListener('message', this.handleMessage, false)
     this.addEventListener('close', this.handleClose, false)
     this.addEventListener('error', this.handleError, false)
-    this.addEventListener('message', this.handleMessage, false)
   }
 
   handleOpen() {
@@ -53,12 +53,12 @@ class Ws extends WebSocket {
   handleError(e) {
     console.log('--- 页面报错了 ---', e)
     this.reconnect()
-
   }
 
-  handleMessage(data) {
+  // 接收数据进行处理
+  handleMessage({ data }) {
     // console.log('--- Client is msg---')
-    const { mode, msg } = JSON.parse(data.data)
+    const { mode, msg } = JSON.parse(data)
     console.log(mode, msg, '==============处理的数据结构')
     switch (mode) {
       case WS_MODE.MESSAGE:
@@ -73,16 +73,18 @@ class Ws extends WebSocket {
     }
 
   }
-  // 计时器
+  // 心跳加速
   startHeartBeat() {
+    console.log(this, '心跳检测');
     this.heartBeatTimer = setInterval(() => {
       // 告诉服务端，来了一个HEART_BEAT的消息,this.connentStatue为真时，才发送消息，
       // 如果关闭时也发送会报错
       if (this.readyState === 1) {
-        this.sendMsg({
+        // 发送信息，用字符串
+        this.send(JSON.stringify({
           mode: WS_MODE.HEART_BEAT,
           msg: 'HEART_BEAT'
-        })
+        }))
       } else {
         clearInterval(this.heartBeatTimer)
         this.heartBeatTimer = null
@@ -106,10 +108,6 @@ class Ws extends WebSocket {
     }, 2000)
   }
 
-  // 发送信息，用字符串
-  sendMsg(data) {
-    this.readyState === 1 && this.send(JSON.stringify(data))
-  }
 
   static create(url, wsReConnect) {
     return new Ws(url, wsReConnect)
