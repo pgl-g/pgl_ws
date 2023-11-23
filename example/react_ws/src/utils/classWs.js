@@ -4,6 +4,28 @@ const WS_MODE = {
 }
 
 
+const stateMsg = [
+  {
+    key: 0,
+    value: '正在连接...'
+  },
+  {
+    key: 1,
+    value: '连接成功，可以通信了'
+  },
+  {
+    key: 2,
+    value: '连接正在关闭'
+  },
+  {
+    key: 3,
+    value: '连接已经关闭，开启连接失败'
+  }
+]
+
+
+
+
 // 当new Ws的时候，就相当于new一个WebSocket的对象
 class Ws extends WebSocket {
   // 当new的时候填写的url，相当于在这加一个url,相当于调constructor

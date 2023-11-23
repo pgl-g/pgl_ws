@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
 import './App.css'
-import Ws from './utils';
+import Ws from './utils/classWs';
 
 function App() {
 
